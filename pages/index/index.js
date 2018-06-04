@@ -29,20 +29,28 @@ Page({
     });
   },
   inputTyping: function (e) {
-    // Rx.Observable.of(e.detail.value).debounceTime(300).distinctUntilChanged().subscribe((data) => {
-    //   console.log(data);
-    // })
-
-    // this.setData({
-    //   inputVal: e.detail.value
-    // });
-    // let that = this;
-    // console.log(e.detail.value)
-    // bookService.getBookById(12).then((res) => {
-    //   that.setData({
-    //     bookList: [res.data.result]
-    //   });
-    // });
+    var seach = e.detail.value;
+    console.log(seach);
+    var that = this;
+    var bookList = []
+    var books = bookService.getAllBookISBN()
+    for (var i = 0, len = books.length; i < len; i++) {
+      var book = bookService.getBookDataByISBN(books[i])
+      if (book['title'].toLowerCase().indexOf(seach.toLowerCase()) != -1){
+        bookList.push(book);
+        continue;
+      }
+      for (var x = 0, x_len = book['author'].length; x < x_len; x++){
+        if (book['author'][x].toLowerCase().indexOf(seach.toLowerCase()) != -1) {
+          bookList.push(book);
+          break;
+        }
+      }
+      }
+    that.setData({
+      bookList: bookList
+    });
+    
   },
   //事件处理函数
   bindViewTap: function () {
@@ -51,140 +59,17 @@ Page({
     })
   },
   onLoad: function () {
-    //console.log('onload index')
-    var that = this;
-
-    //1.获取用户的基本信息，查询数据库获取用户的工号，并使用缓存存在本机
-    //var openid = wx.getStorageSync('openid');
-
-    /*如何获取工号
-    var options={
-      url:config.clubApi.get,
-      data:{
-        appkey: config.appKey,
-        key: openid,
-        type:'userMapping'
-      }
-    }
-    util.request(options).then(res=>{
-      //获取到工号
-      console.log(res.data.result.value);
-    })*/
-
-    //以下这段都是有用的，不要删除。以后做个界面，用户第一次使用的时候就要输入自己的工号，然后把工号和openid存到mapping表里
-    // if (openid) {
-    //   wx.checkSession({
-    //     success: function (e) {
-    //       //登录态未过期
-    //     },
-    //     fail: function () {
-    //       //登录态过期
-    //       wx.login({
-    //         success: function (res) {
-    //           if (res.code) {
-    //             db.getOpenId(res.code).then(res => {
-    //               console.log(res);
-    //               var openid = res.data.openid;
-    //               var expires_in = res.data.expires_in;
-    //               var session_key = res.data.session_key;
-
-    //               for (var key in res.data) {
-    //                 // console.log(key);
-    //                 // console.log(res.data[key]);
-    //                 wx.setStorage({
-    //                   key: key,
-    //                   data: res.data[key]
-    //                 });
-    //               };
-    //             });
-    //           }
-    //         },
-    //         fail: function () {
-    //           console.log('login fail')
-    //         },
-    //         complete: function () {
-    //           // complete
-    //         }
-    //       });
-    //     }
-    //   })
-
-    // } else {
-
-    //   wx.login({
-    //     success: function (res) {
-    //       if (res.code) {
-    //         db.getOpenId(res.code).then(res => {
-    //           console.log(res);
-    //           var openid = res.data.openid;
-    //           var expires_in = res.data.expires_in;
-    //           var session_key = res.data.session_key;
-
-    //           for (var key in res.data) {
-    //             // console.log(key);
-    //             // console.log(res.data[key]);
-    //             wx.setStorage({
-    //               key: key,
-    //               data: res.data[key]
-    //             });
-    //           };
-    //         });
-    //       }
-    //     },
-    //     fail: function () {
-    //       console.log('login fail')
-    //     },
-    //     complete: function () {
-    //       // complete
-    //     }
-    //   });
-
-    // };
-
-
-
-
-
-
-    //2.从数据库获取所有书本的信息
-    // var options = {
-    //   url: config.clubApi.list,
-    //   data: {
-    //     appkey: config.appKey,
-    //     type: 'bookLibrary'
-    //     //columns: ['id', 'isbn13', 'title']
-    //   }
-    // };
-
-    // util.request(options, function (res) {
-    //   var books = [];
-    //   for (var i = 0; i < res.data.result.length; i++) {
-    //     books.push(res.data.result[i].value);
-    //   }
-    //   that.setData({
-    //     bookList: books
-    //   })
-    // });
-
-
-
-    //this.queryAllBooks();
-    // var timestamp3 = new Date().getTime();
-
-    // var newDate = new Date();
-    // newDate.setTime(timestamp3);
-    // console.log(newDate.toLocaleString());
-
-
-
 
   },
   queryBooks: function (e) {
     var that = this;
-    bookService.getAllBooks().then((res) => {
-      that.setData({
-        bookList: res.data.result
-      });
+    var bookList = []
+    var books = bookService.getAllBookISBN()
+    for (var i = 0, len = books.length; i < len; i++){
+      bookList.push(bookService.getBookDataByISBN(books[i]))
+    }
+    that.setData({
+      bookList: bookList
     });
 
   },
@@ -213,20 +98,6 @@ Page({
         type: 'bookLibrary'
       }
     };
-
-    // util.request(options, function (res) {
-    //   var books = [];
-    //   for (var i = 0; i < res.data.result.length; i++) {
-    //     books.push(res.data.result[i].value);
-    //     //books.push(JSON.parse(res.data.result[i].value));
-    //     //console.log(typeof(res.data.result[i].value));
-    //   }
-    //   that.setData({
-    //     bookList: books
-    //   })
-    // });
-
-
 
   }
 

@@ -3,31 +3,31 @@
     <view class="weui-search-bar__form">
       <view class="weui-search-bar__box">
         <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping"
-        />
+        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
         <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
           <icon type="clear" size="14"></icon>
         </view>
       </view>
       <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
-            <icon class="weui-icon-search" type="search" size="14"></icon>
-            <view class="weui-search-bar__text">搜索</view>
-        </label>
+        <icon class="weui-icon-search" type="search" size="14"></icon>
+        <view class="weui-search-bar__text">搜索</view>
+      </label>
     </view>
     <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
   </view>
   <view class="main-wrapper">
-    <view class="book-list" wx:for="{{bookList}}" wx:key="ISBN13" id="{{item.isbn13}}" data-qty="{{item.qty}}" bindtap="goToDetailPage">
+    <view class="book-list" wx:for="{{bookList}}" wx:key="ISBN13" id="{{item.isbn13}}" bindtap="goToDetailPage">
       <view class="book-image">
         <image src="{{item.image}}" mode="aspectFit"></image>
       </view>
       <view class="book-info">
         <view class="book-info-style">
-          <view>书名:{{item.title}}</view>
-          <view>作者:{{item.author}}\n</view>
-          <view>价格:{{item.price}}\n</view>
-          <view>出版信息:{{item.publisher}}\n</view>
-          <view>可借数量:{{item.qty}}\n</view>
+          <view>书名: {{item.title}}</view>
+          <view>作者: {{item.author}}\n</view>
+          <view>价格: {{item.price}}\n</view>
+          <view>出版信息: {{item.publisher}}\n</view>
+          <view>出版日期: {{item.pubdate}}\n</view>
+          <view>ISBN13: {{item.isbn13}}\n</view>
         </view>
       </view>
     </view>

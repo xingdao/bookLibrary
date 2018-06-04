@@ -1,4 +1,10 @@
-# bookLibrary
-注意事项：
+Fork from bookLibrary
 
-要把utils/config下的appKey,appID,appSecret修改成自己小程序对应的key
+书籍存目 小程序源代码
+
+接口 来自 https://github.com/zce/douban-api-proxy
+
+感谢:
+
+    zce
+    hejinzhi

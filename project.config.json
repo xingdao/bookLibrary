@@ -9,8 +9,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.7.2",
-	"appid": "wx78b25a3605bf5b17",
-	"projectname": "bookLibrary",
+	"appid": "wxf0edcfd918a85cba",
+	"projectname": "bookLibraryCard",
 	"condition": {
 		"search": {
 			"current": -1,

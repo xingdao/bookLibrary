@@ -28,3 +28,13 @@ App({
     userInfo:null
   }
 })
+
+/***
+,
+{
+  "iconPath": "assets/img/tj-1.png",
+  "selectedIconPath": "assets/img/tj.png",
+  "pagePath": "pages/me/me",
+  "text": "我"
+}
+**/
